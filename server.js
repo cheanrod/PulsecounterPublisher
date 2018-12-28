@@ -20,9 +20,10 @@ net.createServer(function(sock) {
     sock.on('close', function(data) {
     	// parse JSON
     	try {
-    		var json = JSON.parse(payload);
+			// HACK: wifficounter send EOF as last character, remove it
+    		var json = JSON.parse(payload.substring(0, payload.length-1));
     	} catch (e) {
-    		console.log('Received invalid json')
+    		console.log('Received invalid json (' + e + ') from ' + sock.remoteAddress + ':\n' + payload)
     		return
     	}
     	
