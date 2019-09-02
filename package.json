@@ -9,7 +9,7 @@
   "author": "Sven Werner",
   "license": "ISC",
   "dependencies": {
-    "mqtt": "^2.18.8"
+    "mqtt": "^3.0.0"
   },
   "devDependencies": {},
   "description": ""
