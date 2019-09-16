@@ -1,4 +1,8 @@
-FROM node:alpine
+FROM node:12-alpine
+
+ENV NODE_ENV production
+ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
+ENV PATH=$PATH:/home/node/.npm-global/bin
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -8,13 +12,14 @@ WORKDIR /usr/src/app
 # where available (npm@5+)
 COPY package*.json ./
 
-RUN npm install && npm cache clean --force
 # If you are building your code for production
-# RUN npm install --only=production
+RUN npm install --only=production
 
 # Bundle app source
 COPY . .
 
+# At the end, set the user to use when running this image
+USER node
+
 EXPOSE 8181
 CMD [ "npm", "start" ]
-
